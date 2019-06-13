@@ -649,6 +649,13 @@ amdefine@>=0.0.4:
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
 
+angular-gridster2@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/angular-gridster2/-/angular-gridster2-8.0.0.tgz#6bb0de637aefccc63fb10fd48f3fc0990e5e890e"
+  integrity sha512-mSgOvRfhEKAERU63SsunI/NWajU2wXVTToR6sA5JM1sRptK6PLoAIi9VqcNETTmdRssflOFwJJqBqEeRgelUvg==
+  dependencies:
+    tslib "^1.9.0"
+
 ansi-colors@^3.0.0:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/ansi-colors/-/ansi-colors-3.2.4.tgz#e3a3da4bfbae6c86a9c285625de124a234026fbf"
