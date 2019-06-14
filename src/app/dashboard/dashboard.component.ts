@@ -16,28 +16,16 @@ export class DashboardComponent implements OnInit {
     this.options = {
       gridType: GridType.VerticalFixed,
       compactType: CompactType.CompactUp,
-      displayGrid: DisplayGrid.Always,
-      margin: 10,
-      outerMargin: true,
       minCols: 2,
       maxCols: 2,
-      minRows: 2,
-      maxRows: 100,
-      maxItemCols: 1,
-      minItemCols: 1,
-      maxItemRows: 1,
-      minItemRows: 1,
-      maxItemArea: 1,
-      minItemArea: 1,
+      maxRows: 25,
       defaultItemCols: 1,
       defaultItemRows: 1,
-      fixedColWidth: 250,
-      fixedRowHeight: 250,
+      swap: true,
+      setGridSize: true,
       draggable: {
         enabled: true,
-        dropOverItems: true,
       },
-      disableWindowResize: true,
     };
 
     this.dashboard = [
