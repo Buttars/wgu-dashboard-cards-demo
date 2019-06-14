@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { DashboardCardType } from '../dashboard-card-type';
 
 @Component({
   selector: 'app-dashboard-card',
@@ -12,4 +13,8 @@ export class DashboardCardComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  get DashboardCardType() {
+    return DashboardCardType;
+  }
 }

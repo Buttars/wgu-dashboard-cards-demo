@@ -1,11 +1,19 @@
 .content {
   width: 100%;
   height: 100%;
-}
 
-.id {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
+  &.id {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+
+  &.default {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+  }
 }
