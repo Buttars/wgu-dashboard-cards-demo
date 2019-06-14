@@ -3,12 +3,7 @@ gridster {
   &.scrollVertical {
     overflow-y: hidden;
   }
-}
-
-gridster-item {
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-
-  border-radius: 8px;
+  & > gridster-item {
+    border-radius: 8px;
+  }
 }

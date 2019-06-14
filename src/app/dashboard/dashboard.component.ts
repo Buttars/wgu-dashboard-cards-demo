@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GridsterConfig, GridsterItem, GridType, CompactType, DisplayGrid } from 'angular-gridster2';
+import { GridsterConfig, GridsterItem, GridType, CompactType } from 'angular-gridster2';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit {
 
     this.dashboard = [
       { cols: 1, rows: 1, y: 0, x: 0 },
-      { cols: 1, rows: 1, y: 0, x: 1, hasContent: true },
+      { cols: 1, rows: 1, y: 0, x: 1, type: 'id' },
       { cols: 1, rows: 1, y: 0, x: 4 },
       { cols: 1, rows: 1, y: 1, x: 5 },
       { cols: 1, rows: 1, y: 1, x: 0 },
@@ -44,10 +44,8 @@ export class DashboardComponent implements OnInit {
       this.options.api.optionsChanged();
     }
   }
-  removeItem($event, item) {
-    $event.preventDefault();
-    $event.stopPropagation();
-    this.dashboard.splice(this.dashboard.indexOf(item), 1);
+  removeItem($event) {
+    this.dashboard.splice(this.dashboard.indexOf($event), 1);
   }
 
   addItem() {

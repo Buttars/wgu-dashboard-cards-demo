@@ -8,8 +8,9 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DashboardCardComponent } from './dashboard-card/dashboard-card.component';
 @NgModule({
-  declarations: [AppComponent, DashboardComponent],
+  declarations: [AppComponent, DashboardComponent, DashboardCardComponent],
   imports: [BrowserModule, AppRoutingModule, MaterialModule, GridsterModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],

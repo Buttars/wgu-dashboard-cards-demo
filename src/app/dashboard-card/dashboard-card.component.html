@@ -1,0 +1,10 @@
+<ng-container [ngSwitch]="item?.type">
+  <section *ngSwitchCase="'id'" class="content id">
+    ID
+  </section>
+
+  <section *ngSwitchDefault class="content">
+    Default Content
+    <button mat-mini-fab color="primary" (click)="delete.emit()"><mat-icon>delete</mat-icon></button>
+  </section>
+</ng-container>
