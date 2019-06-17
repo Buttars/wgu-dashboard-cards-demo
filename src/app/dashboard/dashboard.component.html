@@ -1,6 +1,5 @@
-<button mat-flat-button (click)="addItem()">Add</button>
 <gridster [options]="options">
   <gridster-item *ngFor="let item of dashboard" [item]="item">
-    <app-dashboard-card [item]="item" (delete)="removeItem(item)"></app-dashboard-card>
+    <ng-template appDashboardOutlet></ng-template>
   </gridster-item>
 </gridster>

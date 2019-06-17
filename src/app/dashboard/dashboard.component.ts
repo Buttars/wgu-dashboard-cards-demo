@@ -1,17 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ComponentFactoryResolver,
+  ViewChildren,
+  QueryList,
+  ChangeDetectorRef,
+  Input,
+} from '@angular/core';
 import { GridsterConfig, GridsterItem, GridType, CompactType } from 'angular-gridster2';
-import { DashboardCardType } from '../dashboard-card-type';
+import { DashboardOutletDirective } from '../dashboard-outlet.directive';
+import { DashboardCardComponent } from '../dashboard-card/dashboard-card.component';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
+  @Input() dashboard: Array<GridsterItem>;
+  @ViewChildren(DashboardOutletDirective) dashboardOutlet: QueryList<DashboardOutletDirective>;
   options: GridsterConfig;
-  dashboard: Array<GridsterItem>;
 
-  constructor() {}
+  constructor(private cfr: ComponentFactoryResolver, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.options = {
@@ -28,28 +39,33 @@ export class DashboardComponent implements OnInit {
         enabled: true,
       },
     };
-
-    this.dashboard = [
-      { cols: 1, rows: 1, y: 0, x: 0 },
-      { cols: 1, rows: 1, y: 0, x: 1, type: DashboardCardType.IdCard },
-      { cols: 1, rows: 1, y: 0, x: 4 },
-      { cols: 1, rows: 1, y: 1, x: 5 },
-      { cols: 1, rows: 1, y: 1, x: 0 },
-      { cols: 1, rows: 1, y: 1, x: 0 },
-      { cols: 1, rows: 1, y: 1, x: 6 },
-    ];
   }
+
+  ngAfterViewInit() {
+    this.dashboardOutlet.forEach((template, index) => {
+      if (!this.dashboard[index]) {
+        return;
+      }
+      this.loadContent(template, this.dashboard[index]);
+    });
+  }
+
+  loadContent = (template: DashboardOutletDirective, item: GridsterItem) => {
+    if (!item.component) {
+      return;
+    }
+
+    const viewContainerRef = template.viewContainerRef;
+    viewContainerRef.clear();
+    const componentFactory = this.cfr.resolveComponentFactory(item.component);
+    const componentRef = viewContainerRef.createComponent(componentFactory);
+    (componentRef.instance as DashboardCardComponent).data = item.data;
+    this.cd.detectChanges();
+  };
 
   changedOptions() {
     if (this.options.api && this.options.api.optionsChanged) {
       this.options.api.optionsChanged();
     }
-  }
-  removeItem($event) {
-    this.dashboard.splice(this.dashboard.indexOf($event), 1);
-  }
-
-  addItem() {
-    this.dashboard.push({ x: 0, y: 0, cols: 1, rows: 1 });
   }
 }

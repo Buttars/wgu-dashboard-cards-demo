@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DashboardService } from './dashboard.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'wgu-dashbaord-cards';
+  dashboard$;
+
+  constructor(private dashboardService: DashboardService) {
+    this.dashboard$ = dashboardService.dashboard$;
+  }
 }
