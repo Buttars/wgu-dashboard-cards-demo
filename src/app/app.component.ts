@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DashboardService } from './dashboard.service';
+import { GridsterItem } from 'angular-gridster2';
 
 @Component({
   selector: 'app-root',
@@ -13,4 +14,8 @@ export class AppComponent {
   constructor(private dashboardService: DashboardService) {
     this.dashboard$ = dashboardService.dashboard$;
   }
+
+  itemChange = (item: GridsterItem) => {
+    this.dashboardService.itemChange(item);
+  };
 }
