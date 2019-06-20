@@ -7,10 +7,24 @@ import {
   QueryList,
   ChangeDetectorRef,
   Input,
+  ViewChild,
+  Output,
+  EventEmitter,
 } from '@angular/core';
-import { GridsterConfig, GridsterItem, GridType, CompactType } from 'angular-gridster2';
-import { DashboardOutletDirective } from '../dashboard-outlet.directive';
+
+import {
+  GridsterConfig,
+  GridsterItem,
+  GridType,
+  CompactType,
+  GridsterItemComponentInterface,
+  GridsterComponent,
+} from 'angular-gridster2';
+
 import { DashboardCardComponent } from '../dashboard-card/dashboard-card.component';
+import { DashboardOutletDirective } from '../dashboard-outlet.directive';
+
+import { dashboardCards } from '../dashboard-cards';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +33,9 @@ import { DashboardCardComponent } from '../dashboard-card/dashboard-card.compone
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
   @Input() dashboard: Array<GridsterItem>;
+  @ViewChild('gridster', { static: true }) gridster;
   @ViewChildren(DashboardOutletDirective) dashboardOutlet: QueryList<DashboardOutletDirective>;
+  @Output() itemChange = new EventEmitter();
   options: GridsterConfig;
 
   constructor(private cfr: ComponentFactoryResolver, private cd: ChangeDetectorRef) {}
@@ -28,6 +44,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.options = {
       gridType: GridType.VerticalFixed,
       compactType: CompactType.CompactUp,
+      itemChangeCallback: this.itemChangeCallback,
       minCols: 2,
       maxCols: 2,
       maxRows: 25,
@@ -57,7 +74,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     const viewContainerRef = template.viewContainerRef;
     viewContainerRef.clear();
-    const componentFactory = this.cfr.resolveComponentFactory(item.component);
+    const componentFactory = this.cfr.resolveComponentFactory(dashboardCards[item.component]);
     const componentRef = viewContainerRef.createComponent(componentFactory);
     (componentRef.instance as DashboardCardComponent).data = item.data;
     this.cd.detectChanges();
@@ -68,4 +85,9 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.options.api.optionsChanged();
     }
   }
+
+  itemChangeCallback = (item: GridsterItem, itemComponent: GridsterItemComponentInterface) => {
+    this.itemChange.emit(item);
+    console.log(this.gridster);
+  };
 }
